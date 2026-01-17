@@ -2,6 +2,7 @@
 配置管理模块
 """
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from typing import Optional
 
 
@@ -18,6 +19,14 @@ class Settings(BaseSettings):
     
     # 数据库配置
     DATABASE_URL: str
+    
+    @field_validator('DATABASE_URL', mode='before')
+    @classmethod
+    def convert_database_url(cls, v: str) -> str:
+        """将 postgresql:// 转换为 postgresql+asyncpg://"""
+        if v and v.startswith('postgresql://'):
+            return v.replace('postgresql://', 'postgresql+asyncpg://', 1)
+        return v
     
     # Redis 配置
     REDIS_URL: str = "redis://localhost:6379/0"
