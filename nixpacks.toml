@@ -1,12 +1,13 @@
-# Nixpacks 构建配置
-# 让 Nixpacks 自动检测 Python 项目
+# Railway Nixpacks 配置
+# 删除 nixPkgs，让 Nixpacks 完全自动配置 Python 环境
+
 providers = ["python"]
 
-[phases.setup]
-nixPkgs = ["python311Full", "postgresql"]
+[variables]
+PIP_NO_CACHE_DIR = "1"
 
 [phases.install]
-cmds = ["python -m pip install --upgrade pip", "python -m pip install -r requirements.txt"]
+cmds = ["pip install -r requirements.txt"]
 
 [start]
-cmd = "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
+cmd = "cd backend && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
