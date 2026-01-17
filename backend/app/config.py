@@ -3,7 +3,7 @@
 """
 from pydantic_settings import BaseSettings
 from pydantic import field_validator
-from typing import Optional
+from typing import Optional, Any
 
 
 class Settings(BaseSettings):
@@ -22,9 +22,9 @@ class Settings(BaseSettings):
     
     @field_validator('DATABASE_URL', mode='before')
     @classmethod
-    def convert_database_url(cls, v: str) -> str:
+    def convert_database_url(cls, v: Any) -> str:
         """将 postgresql:// 转换为 postgresql+asyncpg://"""
-        if v and v.startswith('postgresql://'):
+        if v and isinstance(v, str) and v.startswith('postgresql://'):
             return v.replace('postgresql://', 'postgresql+asyncpg://', 1)
         return v
     
