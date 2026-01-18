@@ -170,7 +170,7 @@ async def handle_confirmation(message: types.Message, state: FSMContext):
                 admin_text += f"*{answer_data['question']}*\n{answer_data['answer']}\n\n"
             
             keyboard = create_admin_inline_keyboard(submission.id)
-            await send_to_admin(message.bot, admin_text)
+            await send_to_admin(message.bot, admin_text, reply_markup=keyboard)
         
         await state.clear()
     else:
