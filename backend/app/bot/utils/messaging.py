@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 async def send_to_admin(bot: Bot, text: str, reply_markup: Optional[InlineKeyboardMarkup] = None):
     """发送消息给管理员"""
     
-    if not settings.ADMIN_CHAT_IDS:
+    if not settings.ADMIN_CHAT_IDS or not settings.ADMIN_CHAT_IDS.strip():
         logger.warning("ADMIN_CHAT_IDS is not configured")
         return
     
@@ -28,4 +28,4 @@ async def send_to_admin(bot: Bot, text: str, reply_markup: Optional[InlineKeyboa
                     parse_mode="Markdown"
                 )
             except Exception as e:
-                logger.error(f"发送给管理员 {admin_id} 失败: {e}")
+                logger.error(f"Failed to send message to admin {admin_id}: {e}")
