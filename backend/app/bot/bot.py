@@ -1,17 +1,8 @@
 """
 Telegram Bot 主程序
 """
-from aiogram import Bot, Dispatcher
-from aiogram.fsm.storage.memory import MemoryStorage
+from .core import bot, dp
 from .handlers import start, menu, submission, admin
-from ..config import settings
-
-# 初始化 Bot
-bot = Bot(token=settings.BOT_TOKEN)
-
-# 初始化 Dispatcher
-storage = MemoryStorage()
-dp = Dispatcher(storage=storage)
 
 
 def setup_handlers():
@@ -31,3 +22,6 @@ def setup_handlers():
 
 # 设置处理器
 setup_handlers()
+
+# 导出核心对象
+__all__ = ['bot', 'dp']

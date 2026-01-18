@@ -10,7 +10,7 @@ from ...database import async_session_maker
 from ...models.submission import Submission, SubmissionStatus
 from ...models.user import User
 from ...models.template import MessageTemplate, TemplateType
-from ..bot import bot
+from ..core import bot
 
 router = Router()
 

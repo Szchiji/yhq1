@@ -9,7 +9,8 @@ from aiogram.types import Update
 from .config import settings
 from .database import init_db, async_session_maker
 from .api import api_router
-from .bot.bot import bot, dp
+from .bot.core import bot, dp
+from .bot import bot as bot_module  # Import to trigger handler registration
 from .models.user import Admin
 from .models.template import MessageTemplate, TemplateType
 from .auth import get_password_hash
