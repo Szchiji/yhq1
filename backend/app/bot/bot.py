@@ -20,8 +20,5 @@ def setup_handlers():
     dp.include_router(admin.router)
 
 
-# 设置处理器
-setup_handlers()
-
-# 导出核心对象
-__all__ = ['bot', 'dp']
+# 导出核心对象和设置函数
+__all__ = ['bot', 'dp', 'setup_handlers']

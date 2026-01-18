@@ -10,7 +10,7 @@ from .config import settings
 from .database import init_db, async_session_maker
 from .api import api_router
 from .bot.core import bot, dp
-from .bot import bot as bot_module  # Import to trigger handler registration
+from .bot.bot import setup_handlers  # Import handler setup function
 from .models.user import Admin
 from .models.template import MessageTemplate, TemplateType
 from .auth import get_password_hash
@@ -83,6 +83,10 @@ async def lifespan(app: FastAPI):
         
         await session.commit()
         print("✅ 创建默认消息模板")
+    
+    # 注册所有 Bot handlers
+    setup_handlers()
+    print("✅ 注册 Bot Handlers")
     
     # 设置 Webhook（在生产环境中）
     if not settings.DEBUG:
