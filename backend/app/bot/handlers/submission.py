@@ -12,7 +12,7 @@ from ...models.submission import Submission, SubmissionAnswer, SubmissionStatus
 from ...models.template import MessageTemplate, TemplateType
 from ..states import FormStates
 from ..keyboards import create_confirm_keyboard, create_options_keyboard, create_admin_inline_keyboard
-from ..bot import send_to_admin
+from ..utils.messaging import send_to_admin
 
 router = Router()
 
@@ -170,7 +170,7 @@ async def handle_confirmation(message: types.Message, state: FSMContext):
                 admin_text += f"*{answer_data['question']}*\n{answer_data['answer']}\n\n"
             
             keyboard = create_admin_inline_keyboard(submission.id)
-            await send_to_admin(admin_text)
+            await send_to_admin(message.bot, admin_text, reply_markup=keyboard)
         
         await state.clear()
     else:
